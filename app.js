@@ -1,31 +1,20 @@
 import http from 'http';
-import fsp from 'fs/promises';
+import express from 'express';
 
 
-const server= http.createServer(async (req, res)=> {
-  if (req.url === '/') {
-    const content = await fsp.readFile('index.html', 'utf-8')
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/html' );
-    res.end(content);
-  }
+const app = express()
+const port = 3000
 
-  else if(req.url === '/about') {
-    const content = await fsp.readFile('about.html', 'utf-8')
-    res.statusCode= 200;
-    res.setHeader('Content-Type', 'text/html' );
-    res.end(content);
-  }
-  else {
-    res.statusCode= 404;
-    res.setHeader('Content-Type', 'text/plain' );
-    res.end('Request not found');
-  }
-});
+app.get('/', async (req, res) => {
+  const content = await fsp.readFile('index.html', 'utf-8')
+  res.send(content)
+})
 
-const hostname = '127.0.0.1';
-const port = 3000;
+app.get('/', async (req, res) => {
+  const content = await fsp.readFile('about.html', 'utf-8')
+  res.send('Hello World!')
+})
 
-server.listen(port, hostname, () => {
-  console.log('http://${hostname}:${port}/');
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
 })
