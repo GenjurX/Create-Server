@@ -1,0 +1,11 @@
+{
+    
+    
+  "name": "my-test",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node app.js"
+  }
+
+}
